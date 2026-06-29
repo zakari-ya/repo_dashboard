@@ -1,20 +1,33 @@
-# Tableau de bord des repositories
+# Tableau de bord de repositories — Exercice Next.js
 
 ## 1. Compréhension du sujet
 
-Ce projet est un exercice de sélection réalisé avec Next.js. L’objectif est de construire une application front-end uniquement permettant de consulter une liste de repositories simulés, d’ouvrir une page de détail, d’afficher les fichiers associés et d’identifier rapidement les fichiers critiques.
+Ce projet répond à un exercice technique dont l’objectif est de développer une application **Next.js front-end uniquement**, sans back-end, permettant de présenter un tableau de bord de repositories de code.
 
-Le projet ne se connecte à aucun service réel. Toutes les données sont locales, fictives et typées. L’interface, la documentation et les libellés visibles sont en français.
+L’application permet de consulter une liste de repositories simulés, d’ouvrir le détail d’un repository, d’afficher les fichiers associés et d’identifier rapidement les fichiers présentant un niveau de criticité élevé ou critique.
+
+J’ai compris que le but principal de l’exercice n’était pas de créer une vraie connexion à GitHub, mais de démontrer ma capacité à structurer une application front-end claire, responsive, lisible et exploitable à partir de données locales simulées.
 
 ## 2. Choix techniques
 
-Le projet utilise Next.js avec l’App Router, React, TypeScript et Tailwind CSS 4. Ces choix permettent de structurer l’application simplement, de garder un typage strict et de construire une interface responsive sans ajouter de dépendance inutile.
+Le projet utilise :
 
-L’application reste volontairement front-end : pas de backend, pas de route API, pas de base de données, pas d’authentification et aucun appel réseau vers GitHub ou un autre service.
+* **Next.js** pour la structure de l’application et la navigation entre les pages ;
+* **React** pour la création des composants d’interface ;
+* **TypeScript** pour typer les repositories, les fichiers et les niveaux de criticité ;
+* **Tailwind CSS 4** pour construire rapidement une interface responsive, sobre et maintenable ;
+* **des données locales simulées** dans un fichier TypeScript.
+
+Aucun back-end n’a été développé.
+Aucune base de données n’est utilisée.
+Aucun appel API réel n’est effectué.
+Aucune connexion à GitHub ou à un service externe n’est présente.
+
+Ce choix permet de respecter strictement la consigne : produire une application front-end simple, fonctionnelle et centrée sur la qualité de l’interface.
 
 ## 3. Architecture du projet Next.js
 
-L’architecture suit une séparation simple :
+Le projet est organisé de manière simple afin de séparer les pages, les composants, les données, les types et les fonctions utilitaires.
 
 ```txt
 src/
@@ -25,96 +38,180 @@ src/
 │   └── repositories/
 │       └── [slug]/
 │           └── page.tsx
+│
 ├── components/
 │   ├── layout/
 │   ├── repositories/
 │   ├── files/
 │   └── ui/
+│
 ├── data/
 │   └── repositories.ts
+│
 ├── lib/
 │   ├── filters.ts
 │   ├── format.ts
 │   └── risk.ts
+│
 └── types/
     └── repository.ts
 ```
 
-Les pages sont dans `src/app`, les composants réutilisables dans `src/components`, les données simulées dans `src/data`, les fonctions utilitaires dans `src/lib` et les types TypeScript dans `src/types`.
+Les pages de l’application se trouvent dans `src/app`.
+Les composants réutilisables sont regroupés dans `src/components`.
+Les données simulées sont centralisées dans `src/data`.
+Les types TypeScript sont définis dans `src/types`.
+Les fonctions de filtrage, de formatage et de calcul de risque sont placées dans `src/lib`.
+
+Cette organisation permet de garder le code lisible, maintenable et facile à parcourir.
 
 ## 4. Structure des données simulées
 
-Les repositories sont définis localement dans `src/data/repositories.ts`. Chaque repository contient un identifiant, un slug, un nom, une description et une liste de fichiers.
+Les données sont définies localement dans `src/data/repositories.ts`.
 
-Chaque fichier simulé contient :
+Chaque repository contient les informations principales suivantes :
 
-- un nom ;
-- un chemin ;
-- un langage ;
-- un type ;
-- une taille ;
-- une criticité.
+* un identifiant ;
+* un slug ;
+* un nom ;
+* une description ;
+* une liste de fichiers associés.
 
-Les données incluent plusieurs langages comme TypeScript, JavaScript, CSS, JSON, Markdown et YAML. Les fichiers sensibles sont fictifs : aucun vrai secret, token ou identifiant réel n’est présent.
+Chaque fichier contient les métadonnées demandées :
+
+* le nom du fichier ;
+* le chemin ;
+* le langage ;
+* le type ;
+* la taille ;
+* le niveau de criticité.
+
+Les niveaux de criticité utilisés sont :
+
+* faible ;
+* moyenne ;
+* élevée ;
+* critique.
+
+Les données sont entièrement fictives. Les fichiers sensibles comme `.env.local`, `auth.ts` ou `deploy.yml` sont uniquement des exemples simulés. Aucun vrai secret, token, mot de passe ou identifiant réel n’est présent dans le projet.
 
 ## 5. Pages et composants développés
 
-La page d’accueil affiche la liste des repositories avec leurs informations principales : description, nombre de fichiers, langages détectés, fichiers critiques et niveau de risque global.
+L’application contient deux vues principales.
 
-La page détail `/repositories/[slug]` affiche un résumé du repository, ses statistiques, la liste des fichiers, les filtres et une section dédiée aux fichiers critiques.
+La première page affiche la liste des repositories. Chaque repository est présenté sous forme de carte avec ses informations essentielles : nom, description, nombre de fichiers, langages détectés, fichiers critiques et niveau global de risque.
+
+La deuxième page correspond au détail d’un repository. Elle affiche un résumé du repository, les statistiques principales, les fichiers critiques et la liste complète des fichiers associés.
 
 Les principaux composants développés sont :
 
-- `AppHeader` et `PageShell` pour la structure globale ;
-- `RepositoryGrid`, `RepositoryCard` et `RepositoryStats` pour les repositories ;
-- `FileList`, `FileFilters`, `FileTable` et `CriticalFileCard` pour les fichiers ;
-- `Badge`, `StatCard` et `EmptyState` pour les éléments UI réutilisables.
+* `AppHeader` : en-tête simple de l’application ;
+* `PageShell` : structure globale des pages ;
+* `RepositoryGrid` : grille responsive des repositories ;
+* `RepositoryCard` : carte de présentation d’un repository ;
+* `RepositoryStats` : statistiques synthétiques d’un repository ;
+* `FileFilters` : recherche et filtres des fichiers ;
+* `FileList` : gestion de l’affichage des fichiers ;
+* `FileTable` : tableau desktop des fichiers ;
+* `CriticalFileCard` : carte dédiée aux fichiers critiques ;
+* `Badge` : badge visuel pour les niveaux de criticité ;
+* `StatCard` : carte de statistique ;
+* `EmptyState` : état vide lorsqu’aucun résultat n’est trouvé.
+
+Les composants ont été séparés pour éviter d’avoir des pages trop longues et pour rendre le projet plus facile à comprendre.
 
 ## 6. Navigation et expérience utilisateur
 
-Depuis la page d’accueil, chaque carte de repository propose un lien “Consulter le détail”. La page détail contient un lien de retour vers l’accueil.
+La navigation est volontairement simple.
 
-L’expérience est pensée pour rester directe : l’utilisateur voit d’abord les informations importantes, puis peut analyser les fichiers plus précisément grâce à la recherche et aux filtres.
+Depuis la page d’accueil, l’utilisateur peut consulter la liste des repositories et cliquer sur le lien **“Consulter le détail”** pour ouvrir la page d’un repository.
 
-Si un repository demandé n’existe pas, la page affiche un message clair indiquant que le repository est introuvable.
+Sur la page détail, un lien de retour permet de revenir rapidement à la liste principale.
+
+L’expérience utilisateur suit une logique claire :
+
+1. voir les repositories disponibles ;
+2. choisir un repository ;
+3. consulter son niveau de risque ;
+4. identifier les fichiers critiques ;
+5. rechercher ou filtrer les fichiers selon le besoin.
+
+Si aucun fichier ne correspond aux critères de recherche ou de filtre, un message clair est affiché afin d’éviter une interface vide ou confuse.
 
 ## 7. Recherche, filtres et affichage des criticités
 
-La recherche permet de filtrer les fichiers par nom ou par chemin. Deux filtres supplémentaires permettent de filtrer par langage et par criticité.
+La recherche permet de trouver un fichier à partir du début de son nom, de son langage ou de son niveau de criticité.
 
-Un bouton “Réinitialiser” remet les filtres à leur état initial. Si aucun fichier ne correspond aux critères sélectionnés, un état vide affiche “Aucun fichier trouvé”.
+Par exemple :
 
-Les criticités disponibles sont : faible, moyenne, élevée et critique. Les fichiers critiques sont mis en avant avec un style visuel distinct, sans rendre l’interface agressive.
+* taper `p` peut trouver `package.json` ;
+* taper `ty` peut trouver les fichiers en `TypeScript` ;
+* taper `cr` peut trouver les fichiers avec une criticité `critique`.
 
-Le niveau de risque global est calculé dans `src/lib/risk.ts` selon des règles simples :
+La recherche est volontairement progressive afin d’éviter des résultats trop larges. Par exemple, un fichier nommé `zakariya.ts` ne doit pas apparaître simplement parce que l’utilisateur tape une lettre située au milieu du nom.
 
-- au moins deux fichiers critiques : risque critique ;
-- un fichier critique ou plusieurs fichiers élevés : risque élevé ;
-- au moins un fichier moyen ou élevé : risque moyen ;
-- sinon : risque faible.
+Deux filtres complètent la recherche :
+
+* filtre par langage ;
+* filtre par niveau de criticité.
+
+Les fichiers critiques sont mis en évidence visuellement avec un badge et un style distinct. L’objectif est de permettre à l’utilisateur de les repérer rapidement sans rendre l’interface trop agressive.
+
+Le niveau global de risque du repository est calculé à partir des fichiers associés selon des règles simples :
+
+* au moins deux fichiers critiques : risque critique ;
+* un fichier critique ou plusieurs fichiers élevés : risque élevé ;
+* au moins un fichier moyen ou élevé : risque moyen ;
+* sinon : risque faible.
 
 ## 8. Responsive design et qualité visuelle
 
-L’interface est mobile-first. Sur mobile, les repositories et les fichiers sont affichés sous forme de cartes lisibles. Les filtres sont empilés verticalement pour rester faciles à utiliser.
+L’interface a été pensée en mobile-first.
 
-Sur desktop, la liste des fichiers utilise un tableau pour améliorer la lecture comparative des métadonnées. Les espacements, les bordures, les badges et les états de focus ont été harmonisés pour obtenir une interface sobre et professionnelle.
+Sur mobile, les repositories et les fichiers sont affichés sous forme de cartes lisibles. Les filtres sont empilés verticalement pour rester faciles à utiliser sur petit écran.
 
-La direction visuelle reste volontairement discrète : fond clair, cartes blanches, bordures subtiles, typographie lisible et couleurs de statut limitées.
+Sur desktop, l’affichage utilise davantage l’espace disponible avec des grilles et un tableau de fichiers plus confortable pour comparer les métadonnées.
+
+La direction visuelle reste sobre et professionnelle :
+
+* fond clair ;
+* cartes blanches ;
+* bordures discrètes ;
+* typographie lisible ;
+* espacements réguliers ;
+* badges de statut cohérents ;
+* couleurs limitées aux informations importantes.
+
+J’ai évité les effets décoratifs inutiles, les animations excessives et les styles trop génériques afin que l’application reste crédible pour un exercice de recrutement.
 
 ## 9. Vidéo de démonstration
 
-La vidéo de démonstration est prévue comme élément de rendu final. Elle doit montrer :
+Une vidéo de démonstration accompagne le rendu final.
 
-- l’ouverture de la page d’accueil ;
-- la consultation d’un repository ;
-- la recherche d’un fichier ;
-- l’utilisation des filtres ;
-- l’affichage des fichiers critiques ;
-- la vérification du responsive mobile.
+Elle présente :
 
-Lien vidéo : à ajouter après l’enregistrement de la démonstration.
+* le lancement du projet ;
+* la page d’accueil ;
+* la consultation du détail d’un repository ;
+* la recherche d’un fichier ;
+* l’utilisation des filtres ;
+* l’affichage des fichiers critiques ;
+* une vérification rapide du responsive ;
+* une explication courte des choix techniques et graphiques ;
+* une distinction claire entre l’aide de l’IA et le travail personnel.
+
+Lien de la vidéo : **à ajouter après l’enregistrement**
+
+Durée recommandée : entre 3 et 5 minutes.
 
 ## 10. Documentation d’installation et d’utilisation
+
+Cloner le projet :
+
+```bash
+git clone <lien-du-repository>
+cd <nom-du-projet>
+```
 
 Installer les dépendances :
 
@@ -128,59 +225,80 @@ Lancer le serveur de développement :
 npm run dev
 ```
 
-Ouvrir ensuite :
+Ouvrir ensuite l’application dans le navigateur :
 
 ```txt
 http://localhost:3000
 ```
 
-Vérifier le projet :
+Vérifier le projet avant le rendu :
 
 ```bash
 npm run lint
 npm run build
 ```
 
+Le projet ne nécessite aucune variable d’environnement, aucune base de données et aucun service externe.
+
 ## 11. Difficultés rencontrées
 
-La principale difficulté a été de garder l’application simple tout en couvrant toutes les fonctionnalités demandées : liste, détail, statistiques, criticités, recherche, filtres et responsive.
+La principale difficulté a été de garder l’application simple tout en couvrant toutes les consignes demandées : liste de repositories, page détail, fichiers associés, métadonnées, recherche, filtres, criticités, résumé du risque et responsive design.
 
-Un autre point d’attention a été la séparation entre logique métier et composants UI. Les calculs de risque, le filtrage et le formatage ont été placés dans `src/lib` pour éviter de surcharger les composants.
+Un autre point important a été d’éviter de surcharger le code. Pour cela, j’ai séparé la logique métier de l’interface :
 
-Enfin, le build Next.js avec Turbopack peut échouer dans certains environnements sandboxés à cause d’une restriction locale liée au binding de port. Le build passe correctement lorsqu’il est exécuté hors de cette restriction.
+* les données simulées sont dans `src/data` ;
+* les types sont dans `src/types` ;
+* les fonctions de filtrage, de formatage et de risque sont dans `src/lib` ;
+* les composants visuels sont dans `src/components`.
+
+J’ai également fait attention à ne pas ajouter de fonctionnalités hors sujet comme une authentification, une vraie API GitHub, une base de données ou un back-end, afin de respecter précisément le périmètre de l’exercice.
 
 ## 12. Ce que j’ai fait avec l’aide de l’IA
 
-L’IA a été utilisée comme assistance pour structurer progressivement le projet, proposer des composants simples, vérifier la cohérence des fichiers et améliorer la qualité visuelle.
+J’ai utilisé l’IA comme assistant de travail pour m’aider à organiser le projet, structurer les étapes de développement et améliorer la clarté de certains éléments.
 
-Elle a aidé à :
+L’aide de l’IA a été utilisée pour :
 
-- découper le travail en étapes ;
-- générer une première version des types, données simulées et composants ;
-- repérer les incohérences d’interface ;
-- améliorer la lisibilité mobile et desktop ;
-- rédiger une documentation claire en français.
+* proposer une première structure de projet ;
+* réfléchir au découpage des composants ;
+* générer une base de données simulées ;
+* proposer une logique simple de calcul du risque ;
+* améliorer certains textes de documentation ;
+* vérifier que les consignes principales étaient bien couvertes.
 
-L’IA n’a pas remplacé la compréhension du sujet. Les propositions ont été relues, adaptées et corrigées pour respecter les contraintes du projet : pas de backend, pas d’API, pas de dépendance inutile et interface entièrement en français.
+L’IA n’a pas été utilisée comme une solution automatique à copier sans vérification. Les propositions ont été relues, adaptées et corrigées pour respecter les contraintes du sujet.
 
-Les limites de cette aide sont importantes : l’IA peut proposer du code trop générique, ajouter de la complexité inutile ou oublier une contrainte. Chaque étape doit donc être vérifiée manuellement avec le cahier des charges, le lint et le build.
+J’ai notamment vérifié que le projet reste bien front-end uniquement, que les données sont locales, que l’interface est en français et qu’aucune fonctionnalité non demandée n’a été ajoutée.
+
+Les limites de l’aide de l’IA sont les suivantes : elle peut générer du code trop générique, proposer une architecture trop complexe ou oublier certaines contraintes précises. Pour cette raison, chaque étape a nécessité une vérification humaine, des ajustements et des corrections.
 
 ## 13. Ce qui relève de mon travail personnel
 
-Le travail personnel porte sur la compréhension des besoins, le choix de garder une architecture simple, la validation des contraintes et les corrections manuelles nécessaires pour obtenir un rendu cohérent.
+Mon travail personnel a porté sur la compréhension du sujet, le choix d’une architecture simple, la validation des contraintes et l’adaptation du projet au besoin réel de l’exercice.
 
-J’ai vérifié que les données restent locales et fictives, que les textes visibles sont en français, que les composants restent lisibles et que la logique métier est séparée de l’interface.
+J’ai pris les décisions suivantes :
 
-J’ai également ajusté les choix visuels pour obtenir une interface sobre, professionnelle et adaptée à un exercice de recrutement plutôt qu’une interface décorative.
+* garder l’application front-end uniquement ;
+* utiliser des données locales plutôt qu’une API ;
+* structurer le projet en pages, composants, données, types et fonctions utilitaires ;
+* limiter le design à une interface sobre, claire et professionnelle ;
+* mettre en avant les fichiers critiques sans rendre l’interface confuse ;
+* privilégier une approche mobile-first ;
+* simplifier la logique pour que le code reste lisible.
+
+J’ai également relu et corrigé les parties générées avec assistance, ajusté les textes en français, contrôlé la cohérence des composants et vérifié que le projet reste conforme aux consignes du recruteur.
 
 ## 14. Conclusion et pistes d’amélioration
 
-Le projet répond aux besoins principaux : afficher des repositories simulés, consulter leur détail, voir les fichiers associés, rechercher, filtrer et identifier les fichiers critiques.
+Le projet répond aux objectifs de l’exercice : présenter une liste de repositories simulés, consulter le détail d’un repository, afficher les fichiers associés, rechercher, filtrer et identifier les fichiers critiques.
 
-Les pistes d’amélioration possibles seraient :
+L’application reste volontairement simple, locale et sans back-end, conformément aux contraintes demandées.
 
-- ajouter des tests unitaires pour les fonctions de filtrage et de risque ;
-- ajouter une option de tri des fichiers ;
-- améliorer l’accessibilité avec une passe dédiée clavier/lecteur d’écran ;
-- enrichir les données simulées avec davantage de cas limites ;
-- ajouter une capture ou une vidéo finale dans le rendu.
+Les pistes d’amélioration possibles sont :
+
+* ajouter des tests unitaires pour les fonctions de filtrage et de calcul du risque ;
+* ajouter une option de tri des fichiers ;
+* améliorer encore l’accessibilité clavier ;
+* enrichir les données simulées avec plus de cas limites ;
+* ajouter une page d’aide courte pour expliquer les niveaux de criticité ;
+
