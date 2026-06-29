@@ -23,7 +23,7 @@ const badgeStyles: Record<BadgeVariant, string> = {
 export function Badge({ variant = "neutre", children }: BadgeProps) {
   return (
     <span
-      className={`inline-flex w-fit items-center rounded-full border px-2.5 py-1 text-xs font-semibold leading-none ${badgeStyles[variant]}`}
+      className={`inline-flex min-h-6 w-fit items-center whitespace-nowrap rounded-full border px-2.5 py-1 text-xs font-medium leading-none ${badgeStyles[variant]}`}
     >
       {children ?? variant}
     </span>

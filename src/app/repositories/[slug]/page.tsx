@@ -4,6 +4,7 @@ import { FileList } from "@/components/files/FileList";
 import { PageShell } from "@/components/layout/PageShell";
 import { RepositoryStats } from "@/components/repositories/RepositoryStats";
 import { Badge, type BadgeVariant } from "@/components/ui/Badge";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { repositories } from "@/data/repositories";
 import {
   getCriticalFiles,
@@ -47,11 +48,11 @@ export default async function RepositoryPage({ params }: RepositoryPageProps) {
         <div className="space-y-6">
           <Link
             href="/"
-            className="inline-flex min-h-11 items-center text-sm font-semibold text-accent hover:text-accent-hover"
+            className="inline-flex min-h-11 w-fit items-center rounded-md border border-border bg-surface px-3 text-sm font-semibold text-accent shadow-[var(--shadow-card)] transition-colors hover:border-border-strong hover:bg-surface-elevated hover:text-accent-hover"
           >
             Retour à l’accueil
           </Link>
-          <section className="rounded-lg border border-border bg-surface p-6">
+          <section className="rounded-lg border border-border bg-surface p-6 shadow-[var(--shadow-card)]">
             <h2 className="text-2xl font-semibold text-foreground">
               Repository introuvable
             </h2>
@@ -72,12 +73,12 @@ export default async function RepositoryPage({ params }: RepositoryPageProps) {
       <div className="space-y-9">
         <Link
           href="/"
-          className="inline-flex min-h-11 items-center text-sm font-semibold text-accent hover:text-accent-hover"
+          className="inline-flex min-h-11 w-fit items-center rounded-md border border-border bg-surface px-3 text-sm font-semibold text-accent shadow-[var(--shadow-card)] transition-colors hover:border-border-strong hover:bg-surface-elevated hover:text-accent-hover"
         >
           Retour à l’accueil
         </Link>
 
-        <section className="rounded-lg border border-border bg-surface p-5 sm:p-6">
+        <section className="rounded-lg border border-border bg-surface p-5 shadow-[var(--shadow-card)] sm:p-6 lg:p-7">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold text-accent">
@@ -90,9 +91,11 @@ export default async function RepositoryPage({ params }: RepositoryPageProps) {
                 {repository.description}
               </p>
             </div>
-            <Badge variant={riskBadgeVariants[globalRisk]}>
-              {riskLabels[globalRisk]}
-            </Badge>
+            <div className="shrink-0">
+              <Badge variant={riskBadgeVariants[globalRisk]}>
+                {riskLabels[globalRisk]}
+              </Badge>
+            </div>
           </div>
         </section>
 
@@ -118,9 +121,10 @@ export default async function RepositoryPage({ params }: RepositoryPageProps) {
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-border bg-surface-elevated p-5 text-sm text-text-muted">
-              Aucun fichier critique détecté dans ce repository.
-            </div>
+            <EmptyState
+              title="Aucun fichier critique"
+              message="Aucun fichier critique n’est détecté dans ce repository simulé."
+            />
           )}
         </section>
       </div>

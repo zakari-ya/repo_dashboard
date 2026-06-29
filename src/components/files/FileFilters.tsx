@@ -29,7 +29,7 @@ export function FileFilters({
   onReset,
 }: FileFiltersProps) {
   return (
-    <div className="rounded-lg border border-border bg-surface p-4 sm:p-5">
+    <div className="rounded-lg border border-border bg-surface p-4 shadow-[var(--shadow-card)] sm:p-5">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_220px_220px_auto] lg:items-end">
         <label className="block">
           <span className="text-sm font-medium text-foreground">
@@ -39,8 +39,8 @@ export function FileFilters({
             type="search"
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
-            placeholder="Nom, Langage ou Criticité"
-            className="mt-2 min-h-11 w-full rounded-md border border-border bg-white px-3 text-sm text-foreground outline-none transition-colors hover:border-border-strong focus:border-accent focus:ring-2 focus:ring-accent-soft"
+            placeholder="Nom, langage ou criticité"
+            className="mt-2 min-h-11 w-full rounded-md border border-border bg-surface-elevated px-3 text-sm text-foreground outline-none transition-colors hover:border-border-strong focus:border-accent focus:bg-surface focus:ring-2 focus:ring-accent-soft"
           />
         </label>
 
@@ -51,7 +51,7 @@ export function FileFilters({
           <select
             value={language}
             onChange={(event) => onLanguageChange(event.target.value)}
-            className="mt-2 min-h-11 w-full rounded-md border border-border bg-white px-3 text-sm text-foreground outline-none transition-colors hover:border-border-strong focus:border-accent focus:ring-2 focus:ring-accent-soft"
+            className="mt-2 min-h-11 w-full rounded-md border border-border bg-surface-elevated px-3 text-sm text-foreground outline-none transition-colors hover:border-border-strong focus:border-accent focus:bg-surface focus:ring-2 focus:ring-accent-soft"
           >
             <option value="">Tous les langages</option>
             {languages.map((item) => (
@@ -71,7 +71,7 @@ export function FileFilters({
             onChange={(event) =>
               onCriticalityChange(event.target.value as "" | CriticalityLevel)
             }
-            className="mt-2 min-h-11 w-full rounded-md border border-border bg-white px-3 text-sm text-foreground outline-none transition-colors hover:border-border-strong focus:border-accent focus:ring-2 focus:ring-accent-soft"
+            className="mt-2 min-h-11 w-full rounded-md border border-border bg-surface-elevated px-3 text-sm text-foreground outline-none transition-colors hover:border-border-strong focus:border-accent focus:bg-surface focus:ring-2 focus:ring-accent-soft"
           >
             <option value="">Toutes les criticités</option>
             {criticalityOptions.map((item) => (

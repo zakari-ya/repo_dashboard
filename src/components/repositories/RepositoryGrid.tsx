@@ -8,7 +8,7 @@ type RepositoryGridProps = {
 export function RepositoryGrid({ repositories }: RepositoryGridProps) {
   return (
     <section aria-labelledby="repository-list-title" className="space-y-5">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
           <h2
             id="repository-list-title"
@@ -21,7 +21,7 @@ export function RepositoryGrid({ repositories }: RepositoryGridProps) {
             risque global.
           </p>
         </div>
-        <p className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-muted">
+        <p className="w-fit rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-muted shadow-[var(--shadow-card)]">
           {repositories.length} repositories
         </p>
       </div>

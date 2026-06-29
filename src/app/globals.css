@@ -20,6 +20,8 @@
   --warning-border: #efd59c;
   --success-soft: #ecf8f1;
   --success-border: #b9dfc9;
+  --shadow-card: 0 1px 2px rgb(29 37 34 / 0.05);
+  --shadow-card-hover: 0 4px 8px rgb(29 37 34 / 0.07);
 }
 
 @theme inline {
@@ -57,6 +59,8 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {

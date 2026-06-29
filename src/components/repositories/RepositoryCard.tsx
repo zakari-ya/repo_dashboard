@@ -32,29 +32,31 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
   const globalRisk = getGlobalRisk(repository.files);
 
   return (
-    <article className="flex h-full flex-col rounded-lg border border-border bg-surface p-5">
+    <article className="flex h-full flex-col rounded-lg border border-border bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,background-color,box-shadow] hover:border-border-strong hover:bg-surface-elevated hover:shadow-[var(--shadow-card-hover)] sm:p-6">
       <div className="flex flex-col gap-3">
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <h3 className="min-w-0 break-words text-lg font-semibold text-foreground">
             {repository.name}
           </h3>
-          <Badge variant={riskBadgeVariants[globalRisk]}>
-            {riskLabels[globalRisk]}
-          </Badge>
+          <div className="shrink-0">
+            <Badge variant={riskBadgeVariants[globalRisk]}>
+              {riskLabels[globalRisk]}
+            </Badge>
+          </div>
         </div>
         <p className="text-sm leading-6 text-text-muted">
           {repository.description}
         </p>
       </div>
 
-      <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
-        <div className="rounded-md border border-border bg-surface-elevated p-3">
+      <dl className="mt-5 grid grid-cols-2 gap-x-5 border-y border-border py-4 text-sm">
+        <div>
           <dt className="text-text-muted">Fichiers</dt>
           <dd className="mt-1 font-semibold tabular-nums text-foreground">
             {repository.files.length}
           </dd>
         </div>
-        <div className="rounded-md border border-border bg-surface-elevated p-3">
+        <div>
           <dt className="text-text-muted">Critiques</dt>
           <dd className="mt-1 font-semibold tabular-nums text-foreground">
             {criticalFilesCount}
@@ -73,12 +75,14 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
         </div>
       </div>
 
-      <Link
-        href={`/repositories/${repository.slug}`}
-        className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md border border-accent bg-accent px-4 text-sm font-semibold text-white transition-colors hover:bg-accent-hover active:bg-accent-hover"
-      >
-        Consulter le détail
-      </Link>
+      <div className="mt-auto pt-6">
+        <Link
+          href={`/repositories/${repository.slug}`}
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-md border border-accent bg-accent px-4 text-sm font-semibold text-white transition-colors hover:bg-accent-hover active:bg-accent-hover"
+        >
+          Consulter le détail
+        </Link>
+      </div>
     </article>
   );
 }

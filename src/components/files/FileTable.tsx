@@ -20,7 +20,7 @@ export function FileTable({ files }: FileTableProps) {
         {files.map((file) => (
           <article
             key={file.id}
-            className={`rounded-lg border p-4 ${
+            className={`rounded-lg border p-4 shadow-[var(--shadow-card)] ${
               file.criticality === "critique"
                 ? "border-danger-border bg-danger-soft"
                 : "border-border bg-surface"
@@ -40,7 +40,7 @@ export function FileTable({ files }: FileTableProps) {
               </Badge>
             </div>
 
-            <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+            <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-border pt-4 text-sm">
               <div>
                 <dt className="text-text-muted">Langage</dt>
                 <dd className="mt-1 font-medium text-foreground">
@@ -70,10 +70,10 @@ export function FileTable({ files }: FileTableProps) {
         ))}
       </div>
 
-      <div className="hidden overflow-hidden rounded-lg border border-border bg-surface md:block">
+      <div className="hidden overflow-hidden rounded-lg border border-border bg-surface shadow-[var(--shadow-card)] md:block">
         <div className="overflow-x-auto">
-          <table className="min-w-[820px] w-full border-collapse text-left text-sm">
-            <thead className="border-b border-border bg-surface-muted text-xs font-semibold uppercase tracking-[0.06em] text-text-muted">
+          <table className="w-full min-w-[820px] border-collapse text-left text-sm">
+            <thead className="border-b border-border bg-surface-muted text-xs font-semibold uppercase tracking-[0.04em] text-text-muted">
               <tr>
                 <th className="px-4 py-3 font-semibold">Nom</th>
                 <th className="px-4 py-3 font-semibold">Chemin</th>
@@ -87,13 +87,13 @@ export function FileTable({ files }: FileTableProps) {
               {files.map((file) => (
                 <tr
                   key={file.id}
-                  className={
+                  className={`transition-colors ${
                     file.criticality === "critique"
                       ? "bg-danger-soft"
-                      : "bg-surface"
-                  }
+                      : "bg-surface hover:bg-surface-elevated"
+                  }`}
                 >
-                  <td className="px-4 py-4 align-top font-medium text-foreground">
+                  <td className="px-4 py-4 align-top font-semibold text-foreground">
                     {file.name}
                   </td>
                   <td className="max-w-[320px] px-4 py-4 align-top font-mono text-xs leading-5 text-text-muted">

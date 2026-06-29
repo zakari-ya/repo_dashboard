@@ -36,12 +36,19 @@ export function FileList({ files }: FileListProps) {
 
   return (
     <section className="space-y-4">
-      <div>
-        <h3 className="text-xl font-semibold text-foreground">
-          Tous les fichiers
-        </h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-text-muted">
-          Recherchez par nom ou chemin, puis filtrez par langage ou criticité.
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h3 className="text-xl font-semibold text-foreground">
+            Tous les fichiers
+          </h3>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-text-muted">
+            Recherchez par nom, langage ou criticité, puis affinez avec les
+            filtres dédiés.
+          </p>
+        </div>
+        <p className="w-fit rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-muted shadow-[var(--shadow-card)]">
+          {filteredFiles.length} fichier{filteredFiles.length > 1 ? "s" : ""}{" "}
+          affiché{filteredFiles.length > 1 ? "s" : ""}
         </p>
       </div>
 
